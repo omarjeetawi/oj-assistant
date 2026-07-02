@@ -1,0 +1,8 @@
+{
+  "name": "oj-assistant",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "echo build",
+    "start": "node api/chat.js"
+  }
+}
