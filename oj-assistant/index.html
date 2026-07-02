@@ -1,0 +1,223 @@
+bash
+
+cat /home/claude/oj-app/public/index.html
+Output
+
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مساعد OJ الذكي</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; direction: rtl; height: 100vh; display: flex; flex-direction: column; }
+    .header { background: #161b22; border-bottom: 1px solid #30363d; padding: 14px 18px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .logo { width: 40px; height: 40px; background: linear-gradient(135deg,#1a7f5a,#0ea271); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+    .header-text h1 { color: #e6edf3; font-size: 15px; font-weight: 600; }
+    .header-text p { color: #7d8590; font-size: 12px; margin-top: 2px; }
+    .status { width: 8px; height: 8px; background: #3fb950; border-radius: 50%; margin-right: auto; box-shadow: 0 0 6px #3fb950; flex-shrink: 0; }
+    .msgs { flex: 1; overflow-y: auto; padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; max-width: 760px; width: 100%; margin: 0 auto; }
+    .msgs::-webkit-scrollbar { width: 4px; }
+    .msgs::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+    .welcome { background: #161b22; border: 1px solid #21262d; border-radius: 12px; padding: 20px; color: #e6edf3; line-height: 1.8; font-size: 14px; }
+    .welcome h2 { color: #0ea271; font-size: 16px; margin-bottom: 10px; }
+    .welcome ul { margin-right: 20px; color: #8b949e; margin-top: 8px; }
+    .row { display: flex; align-items: flex-start; gap: 10px; }
+    .row.user { flex-direction: row-reverse; }
+    .av { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+    .av.ai { background: #1f6feb22; border: 1px solid #1f6feb44; color: #58a6ff; }
+    .av.user { background: #0ea27122; border: 1px solid #0ea27144; color: #3fb950; }
+    .bubble { max-width: 83%; padding: 11px 15px; border-radius: 12px; font-size: 14px; line-height: 1.75; white-space: pre-wrap; word-break: break-word; }
+    .bubble.ai { background: #161b22; border: 1px solid #21262d; color: #e6edf3; border-radius: 4px 12px 12px 12px; }
+    .bubble.user { background: #0ea271; color: #fff; border-radius: 12px 4px 12px 12px; }
+    .typing { display: flex; gap: 5px; padding: 14px 16px; background: #161b22; border: 1px solid #21262d; border-radius: 4px 12px 12px 12px; }
+    .dot { width: 6px; height: 6px; background: #0ea271; border-radius: 50%; animation: pulse 1.2s infinite; }
+    .dot:nth-child(2) { animation-delay: .2s; }
+    .dot:nth-child(3) { animation-delay: .4s; }
+    @keyframes pulse { 0%,100%{opacity:.3;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
+    .inp-area { padding: 14px; border-top: 1px solid #21262d; background: #0d1117; flex-shrink: 0; }
+    .inp-inner { max-width: 760px; margin: 0 auto; }
+    .inp-wrap { display: flex; align-items: flex-end; gap: 8px; background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 9px 12px; transition: border-color .15s; }
+    .inp-wrap:focus-within { border-color: #0ea271; box-shadow: 0 0 0 3px #0ea27115; }
+    textarea { flex: 1; background: transparent; border: none; outline: none; resize: none; font-family: inherit; font-size: 14px; color: #e6edf3; line-height: 1.6; direction: rtl; min-height: 24px; max-height: 120px; overflow-y: auto; }
+    textarea::placeholder { color: #484f58; }
+    .send-btn { width: 34px; height: 34px; background: #0ea271; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background .15s; }
+    .send-btn:hover:not(:disabled) { background: #12b97f; }
+    .send-btn:disabled { background: #21262d; cursor: not-allowed; }
+    .send-btn svg { width: 15px; height: 15px; fill: white; }
+    .hint { text-align: center; font-size: 11px; color: #484f58; margin-top: 7px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">OJ</div>
+    <div class="header-text">
+      <h1>مساعد OJ الذكي</h1>
+      <p>دوسيات الأستاذ عمر جيتاوي · كيمياء التوجيهي الفلسطيني</p>
+    </div>
+    <div class="status"></div>
+  </div>
+
+  <div class="msgs" id="msgs">
+    <div class="welcome">
+      <h2>🧪 أهلاً بك في مساعد OJ الذكي</h2>
+      <p>أعمل حصراً من <strong>دوسيات الأستاذ عمر جيتاوي</strong> والكتاب المدرسي الفلسطيني.</p>
+      <br/>
+      <p>يمكنني مساعدتك في:</p>
+      <ul>
+        <li>شرح المفاهيم والقوانين من الدوسية</li>
+        <li>حل المسائل الحسابية خطوة بخطوة</li>
+        <li>تصحيح الأخطاء المفاهيمية الشائعة</li>
+        <li>التحضير للأسئلة الوزارية</li>
+      </ul>
+      <br/>
+      <p><strong>ما سؤالك الكيميائي اليوم؟ 🎯</strong></p>
+    </div>
+  </div>
+
+  <div class="inp-area">
+    <div class="inp-inner">
+      <div class="inp-wrap">
+        <textarea id="inp" placeholder="اكتب سؤالك الكيميائي هنا..." rows="1"></textarea>
+        <button class="send-btn" id="sendBtn">
+          <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+        </button>
+      </div>
+      <p class="hint">Enter للإرسال · Shift+Enter لسطر جديد</p>
+    </div>
+  </div>
+
+  <script>
+    const msgs = document.getElementById('msgs');
+    const inp = document.getElementById('inp');
+    const sendBtn = document.getElementById('sendBtn');
+    let history = [];
+    let loading = false;
+
+    inp.addEventListener('input', () => {
+      inp.style.height = 'auto';
+      inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
+    });
+
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+    });
+
+    sendBtn.addEventListener('click', send);
+
+    function addMessage(role, content) {
+      const row = document.createElement('div');
+      row.className = `row ${role}`;
+      const av = document.createElement('div');
+      av.className = `av ${role === 'assistant' ? 'ai' : 'user'}`;
+      av.textContent = role === 'assistant' ? 'OJ' : 'أنت';
+      const bubble = document.createElement('div');
+      bubble.className = `bubble ${role === 'assistant' ? 'ai' : 'user'}`;
+      bubble.textContent = content;
+      row.appendChild(av);
+      row.appendChild(bubble);
+      msgs.appendChild(row);
+      msgs.scrollTop = msgs.scrollHeight;
+      return bubble;
+    }
+
+    function showTyping() {
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.id = 'typing';
+      const av = document.createElement('div');
+      av.className = 'av ai';
+      av.textContent = 'OJ';
+      const t = document.createElement('div');
+      t.className = 'typing';
+      t.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+      row.appendChild(av);
+      row.appendChild(t);
+      msgs.appendChild(row);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function hideTyping() {
+      const t = document.getElementById('typing');
+      if (t) t.remove();
+    }
+
+    async function send() {
+      const text = inp.value.trim();
+      if (!text || loading) return;
+      loading = true;
+      sendBtn.disabled = true;
+      inp.value = '';
+      inp.style.height = 'auto';
+
+      history.push({ role: 'user', content: text });
+      addMessage('user', text);
+      showTyping();
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: history, userText: text })
+        });
+
+        const data = await res.json();
+        hideTyping();
+
+        if (!res.ok || data.error) {
+          const errMsg = `⚠️ خطأ: ${data.error || res.status}`;
+          history.push({ role: 'assistant', content: errMsg });
+          addMessage('assistant', errMsg);
+        } else {
+          history.push({ role: 'assistant', content: data.reply });
+          addMessage('assistant', data.reply);
+        }
+      } catch (e) {
+        hideTyping();
+        const errMsg = `⚠️ خطأ في الاتصال: ${e.message}`;
+        history.push({ role: 'assistant', content: errMsg });
+        addMessage('assistant', errMsg);
+      } finally {
+        loading = false;
+        sendBtn.disabled = false;
+        inp.focus();
+      }
+    }
+  </script>
+</body>
+</html>
+Done
+أسهل طريقة — سأنشئ الملفات مباشرة على GitHub بدون تحميل:
+
+1. افتح github.com/new
+
+الاسم: oj-assistant
+اضغط Create repository
+2. في الصفحة اضغط "creating a new file"
+
+3. في خانة الاسم اكتب: vercel.json
+والصق هذا المحتوى:
+
+json
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ]
+}
+اضغط Commit changes
+
+4. اضغط "Add file" → "Create new file"
+في خانة الاسم اكتب: api/chat.js
+حمّل ملف chat.js من الأعلى والصق محتواه
+اضغط Commit changes
+
+5. اضغط "Add file" → "Create new file"
+في خانة الاسم اكتب: public/index.html
+والصق محتوى الـ HTML كاملاً
+
+هل تريد أنسخ لك محتوى chat.js هنا أيضاً لتلصقه مباشرة؟
+
+
+
+Want to be notified when Claude responds?
